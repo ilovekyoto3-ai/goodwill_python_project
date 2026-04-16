@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>frmMainTest</class>
+ <widget class="QWidget" name="frmMainTest">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1100</width>
+    <height>726</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>11</pointsize>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>測試主視窗</string>
+  </property>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>228</y>
+     <width>343</width>
+     <height>487</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>341</width>
+      <height>485</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="btnStart">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>36</y>
+     <width>115</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string>按此鈕進行設備連線及進行測試 </string>
+   </property>
+   <property name="text">
+    <string>開始</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnStop">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>78</y>
+     <width>115</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string>停止測試</string>
+   </property>
+   <property name="text">
+    <string>停止</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnExit">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>162</y>
+     <width>115</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="toolTip">
+    <string>關閉程式</string>
+   </property>
+   <property name="text">
+    <string>結束</string>
+   </property>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget_2">
+   <property name="geometry">
+    <rect>
+     <x>288</x>
+     <y>36</y>
+     <width>283</width>
+     <height>139</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout_2">
+    <property name="sizeConstraint">
+     <enum>QLayout::SetDefaultConstraint</enum>
+    </property>
+    <property name="fieldGrowthPolicy">
+     <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+    </property>
+    <property name="rowWrapPolicy">
+     <enum>QFormLayout::DontWrapRows</enum>
+    </property>
+    <property name="horizontalSpacing">
+     <number>6</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>測試脚本:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QComboBox" name="cboScript">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="Label">
+      <property name="text">
+       <string>測試編號:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="cboReportNo">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>開始時間:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="ltxtStartTime">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="ltxtSpendTime">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_7">
+      <property name="text">
+       <string>花費時間:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_10">
+      <property name="text">
+       <string>脚本版本:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="ltxtScriptVer">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="formLayoutWidget_3">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>36</y>
+     <width>271</width>
+     <height>139</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout_3">
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>工作站:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>檢測者:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>機器型號:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>機器序號:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="ltxtWorkstation">
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="ltxtInspector">
+      <property name="toolTip">
+       <string>輸入檢測者工號</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="ltxtDUTModel">
+      <property name="text">
+       <string>GPT-9804</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="ltxtDUTSn">
+      <property name="text">
+       <string>GEW110100</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QScrollArea" name="scrollArea_2">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>228</y>
+     <width>601</width>
+     <height>223</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>599</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <widget class="QTableView" name="tbView">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>6</y>
+       <width>595</width>
+       <height>211</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>11</pointsize>
+      </font>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="btnNewReport">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>120</y>
+     <width>115</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>產生新的測試表</string>
+   </property>
+   <property name="text">
+    <string>新測試</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnConDev">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>252</y>
+     <width>115</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>進行設備連線確認, 不執行測試</string>
+   </property>
+   <property name="text">
+    <string>設備確認</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnProTest">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>672</y>
+     <width>115</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>程式開發時, 片段程式測試用.</string>
+   </property>
+   <property name="text">
+    <string>上傳資料</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblSkipPort">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>300</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>不檢查埠:</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txtSkipPort">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>324</y>
+     <width>115</width>
+     <height>103</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>設備連線確認時, 有設備未連接時, 再次掃描電腦連接埠時, 
+那些埠確定没有用, 要略過檢查, 節省連線時間.</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="chkFixOptimize">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>516</y>
+     <width>115</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>勾選:依治具條件列表順序進行測試, 可減少換線頻率.
+未勾選:依測試項目順序進行測試.</string>
+   </property>
+   <property name="text">
+    <string>治具控制優化</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="chkFixManual">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>540</y>
+     <width>115</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>勾選:手動換線接治具
+未勾選:自動切換ATE治具進行換線.</string>
+   </property>
+   <property name="text">
+    <string>手動接線治具</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>204</y>
+     <width>61</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>資料庫:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="ledDBPath">
+   <property name="geometry">
+    <rect>
+     <x>78</x>
+     <y>204</y>
+     <width>493</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+  </widget>
+  <widget class="QScrollArea" name="scrollArea_3">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>456</y>
+     <width>601</width>
+     <height>259</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents_3">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>599</width>
+      <height>257</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="btnFixtureTest">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>630</y>
+     <width>115</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>勾選治具條件列表, 進行治具開關切換確認.
+勾選項目&gt;1個時, 5秒自動切換到下個項目</string>
+   </property>
+   <property name="text">
+    <string>治具測試</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="chkHVMManual">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>564</y>
+     <width>115</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>勾選:手填高壓表讀值.
+未勾選:使用可連線的vitrek 4700自動讀值</string>
+   </property>
+   <property name="text">
+    <string>手填高壓表值</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lblSpecTRow">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>438</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>指定測試列:</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txtSpecTRow">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>462</y>
+     <width>115</width>
+     <height>49</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>空白, 依左側測試項目及治具條件列表勾選項目進行測試.
+填入數值(可','分開, '-'指定範圍), 測試指定的列.
+註:測試項目, 治具條件列表及指定測試列為交集關係.</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>180</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>機器IDN:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="ledDUT_IDN">
+   <property name="geometry">
+    <rect>
+     <x>78</x>
+     <y>180</y>
+     <width>493</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="txtMsg">
+   <property name="geometry">
+    <rect>
+     <x>577</x>
+     <y>36</y>
+     <width>385</width>
+     <height>163</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnMModify">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>588</y>
+     <width>115</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+   <property name="toolTip">
+    <string>在&quot;指定測試列&quot;填入要修改的列號, 按此鈕進行主量測值修改</string>
+   </property>
+   <property name="text">
+    <string>手動修訂測值</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnExportRec">
+   <property name="geometry">
+    <rect>
+     <x>972</x>
+     <y>210</y>
+     <width>115</width>
+     <height>40</height>
+    </rect>
+   </property>
+   <property name="toolTip">
+    <string>進行設備連線確認, 不執行測試</string>
+   </property>
+   <property name="text">
+    <string>輸出測試記錄</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="ledDataUpload">
+   <property name="geometry">
+    <rect>
+     <x>576</x>
+     <y>204</y>
+     <width>385</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::ClickFocus</enum>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>ltxtWorkstation</tabstop>
+  <tabstop>ltxtInspector</tabstop>
+  <tabstop>ltxtDUTModel</tabstop>
+  <tabstop>ltxtDUTSn</tabstop>
+  <tabstop>cboScript</tabstop>
+  <tabstop>cboReportNo</tabstop>
+  <tabstop>ltxtStartTime</tabstop>
+  <tabstop>ltxtSpendTime</tabstop>
+  <tabstop>btnStart</tabstop>
+  <tabstop>btnStop</tabstop>
+  <tabstop>scrollArea_2</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>btnNewReport</tabstop>
+  <tabstop>btnConDev</tabstop>
+  <tabstop>btnExit</tabstop>
+  <tabstop>tbView</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
