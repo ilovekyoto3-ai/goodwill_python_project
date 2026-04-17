@@ -3262,7 +3262,8 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 #i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
                 #i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
                 i2t = str(r.value(TH.col_ItemName_2t)).upper().split()[-1]
-                i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")#TEST test
+                print("Git test 123")
                 strM=i2t+i3t
                 #psw = self.select_psw(r.value(TH.col_Cond_DUT))
                 #if psw is None:
