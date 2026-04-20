@@ -1,1 +1,0 @@
-# goodwill_python_project
