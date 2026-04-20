@@ -911,7 +911,7 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
     BRList=[]       #使用的Baud Rate List
     SkipPort=[]     #使用大寫儲存不檢查的連接埤    
     #已程式完成項目, 讓測項自動預設勾選----------------------------------------------------------------------------------
-    OKItem=['PEL_CC準確度','PEL_CC表頭準確度','PEL_CR準確度','PEL_CV準確度','PEL_CV表頭準確度','PEL_CP準確度','CC_BNC_IMON準確度','CV_BNC_VMON準確度','電壓設定準確度','空戴漏電流確認', '空載漏電流確認', 'IR電壓設定準確度', 'IR電壓調整率', '電壓調整率'
+    OKItem=['CC Accuracy','CC Measurement Readback','CR Accuracy','CV Accuracy','CV Measurement Readback','CP Accuracy','CC BNC IMON Accuracy','CV BNC VMON Accuracy','電壓設定準確度','空戴漏電流確認', '空載漏電流確認', 'IR電壓設定準確度', 'IR電壓調整率', '電壓調整率'
             ,'電壓量測準確度', '電流量測準確度','Cut off 電流準確度', 'IR絕緣阻抗量測準確度','GB電流設定準確度'
             ,'GB電阻量測準確度','寫入機器序號','背板輸出確認', '掃描功能確認', 'ARC功能確認', 'REMOTE功能確認'
             ,'Signal IO功能確認', 'GPIB功能確認','寫入USB識別碼','寫入USB識別碼確認','Initial','CONT電阻量測準確度','寫入機器日期時間']  
@@ -1508,7 +1508,6 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 host=self.MariaDB_Host,
                 port=self.MariaDB_port,
                 database=self.MariaDB_Name)
-            
             # self.MariaDB.open()
             query = QSqlQuery(self.db) 
             # query2 = QSqlQuery(self.MariaDB)
@@ -2874,12 +2873,12 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
             else:
                 sSql+=f", Judge=NULL"
                 rJudge='NULL'
-            #if r.value(TH.col_Comment) !="":
-            #    sSql+=f", Comment='{r.value(TH.col_Comment)}'"
-            #    rComment=r.value(TH.col_Comment)
-            #else:
-            #    sSql+=f", Comment=NULL"
-            #    rComment='NULL'
+            if r.value(TH.col_Comment) !="":
+                sSql+=f", Comment='{r.value(TH.col_Comment)}'"
+                rComment=r.value(TH.col_Comment)
+            else:
+                sSql+=f", Comment=NULL"
+                rComment='NULL'
             sSql+=f", Datetime_Upload=NULL"
             sSql+=f" where TestDocNo='{docno}' and ItemNo={r.value(TH.col_No_1)} and SubItemNo={r.value(TH.col_No_2)}  and TestPointNo={r.value(TH.col_No_3)}"        
             # print(sSql)
@@ -3149,21 +3148,21 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
              
             sJudge='Fail'
             IName=ItemName[ItemName.find('.')+1:]
-            if   IName in ['PEL_CC準確度']:
+            if   IName in ['CC Accuracy']:
                 sJudge=self.PEL_CC_Accuracy(IName,FixUse) 
-            elif IName in ['PEL_CC表頭準確度']:
+            elif IName in ['CC Measurement Readback']:
                 sJudge=self.PEL_CC_Mea_Readback(IName,FixUse)
-            elif IName in ['PEL_CR準確度']:
+            elif IName in ['CR Accuracy']:
                 sJudge=self.PEL_CR_Accuracy(IName,FixUse)
-            elif IName in ['PEL_CV準確度']:
+            elif IName in ['CV Accuracy']:
                 sJudge=self.PEL_CV_Accuracy(IName,FixUse)
-            elif IName in ['PEL_CV表頭準確度']:
+            elif IName in ['CV Measurement Readback']:
                 sJudge=self.PEL_CV_Mea_Readback(IName,FixUse)
-            elif IName in ['PEL_CP準確度']:
+            elif IName in ['CP Accuracy']:
                 sJudge=self.PEL_CP_Accuracy(IName,FixUse)
-            elif IName in ['CC_BNC_IMON準確度']:
+            elif IName in ['CC BNC IMON Accuracy']:
                 sJudge=self.PEL_CC_IMON_Accuracy(IName,FixUse)
-            elif IName in ['CV_BNC_VMON準確度']:
+            elif IName in ['CV BNC VMON Accuracy']:
                 sJudge=self.PEL_CV_VMON_Accuracy(IName,FixUse)
         except Exception as e:
             self.txtMsg_append(f"{subProcName} Error: \n{str(e)}",Qt.red)
@@ -3260,8 +3259,10 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 PSW_H_A.RST()
                 PSW_H_V.RST()
                 self.DUT.setOper_Mode("CC")
-                i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
-                i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                #i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
+                #i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                i2t = str(r.value(TH.col_ItemName_2t)).upper().split()[-1]
+                i3t = str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
                 strM=i2t+i3t
                 psw = self.select_psw(r.value(TH.col_Cond_DUT))
                 if psw is None:
@@ -3385,12 +3386,14 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                     
                     
 
-                if strIName=='PEL_CC準確度':
+                if strIName=='CC Accuracy':
                     r.setValue(TH.col_Measure_Main,PCS_read)
                     r.setValue(TH.col_LowLimit,CL)
                     r.setValue(TH.col_UpLimit,CU)
                     r.setValue(TH.col_Measure_1,PEL_CC_SET_V)
                     r.setValue(TH.col_Measure_2,DMM_CC_MEAS_V)
+                    rComment=f'{{"DUT設定值":{PEL_CC_SET_V},"SHUNT讀值":{PCS_read},"DVM讀值":{DMM_CC_MEAS_V}}}'
+                    r.setValue(TH.col_Comment, rComment)
                     if  r.value(TH.col_Measure_Main)!='':
                         #self.txtMsg_append(f"DUT Measure=> {MeasDut['Function']}, {MeasDut['Status']}, {str(MeasDut['TVA'])}, {str(MeasDut['TAR'])}, {str(MeasDut['TT'])}")
                         if r.value(TH.col_Measure_Main) > r.value(TH.col_LowLimit) and r.value(TH.col_Measure_Main) < r.value(TH.col_UpLimit):
@@ -3401,7 +3404,6 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                         #self.txtMsg_append(f"DUT Measure=> {MeasDut['Function']}, {MeasDut['Status']}, {str(MeasDut['TVA'])}, {str(MeasDut['TAR'])}, {str(MeasDut['TT'])}",Qt.red)
                         r.setValue(TH.col_Judge, 'FAIL')
                         rComment+=f",Status: {MeasDut['Status']}"
-                    r.setValue(TH.col_Comment, rComment)
                     self.Update_TRecord(r,True,rStartTime)
                     psw.setOutput_State(0,delay_after=0.5)
                     self.DUT.CLS()
@@ -3481,8 +3483,10 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 PSW_H_A.RST()
                 PSW_H_V.RST()
                 self.DUT.setOper_Mode("CC")
-                i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
-                i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                #i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
+                #i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                i2t = str(r.value(TH.col_ItemName_2t)).upper().split()[-1]
+                i3t = str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
                 strM=i2t+i3t
                 psw = self.select_psw(r.value(TH.col_Cond_DUT))
                 if strM.find('LOW')>=0:
@@ -3569,12 +3573,14 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                         print(f"計算結果: {AU}")
 
                     
-                if strIName=='PEL_CC表頭準確度':
+                if strIName=='CC Measurement Readback':
                     r.setValue(TH.col_Deviation_LowLimit,AL)
                     r.setValue(TH.col_Deviation_UpLimit,AU)
                     r.setValue(TH.col_Measure_Main,PEL_MEAS_READBK)
                     r.setValue(TH.col_Measure_1,PEL_CC_SET_V)
                     r.setValue(TH.col_Measure_2,PCS_CCMEAS_READBK)
+                    rComment=f'{{"DUT設定值":{PEL_CC_SET_V},"SHUNT讀值":{PCS_CCMEAS_READBK},"DUT讀值":{PEL_MEAS_READBK}}}'
+                    r.setValue(TH.col_Comment, rComment)
                     if  r.value(TH.col_Measure_Main)!='':
                         #self.txtMsg_append(f"DUT Measure=> {MeasDut['Function']}, {MeasDut['Status']}, {str(MeasDut['TVA'])}, {str(MeasDut['TAR'])}, {str(MeasDut['TT'])}")
                         if r.value(TH.col_Measure_Main) > r.value(TH.col_Deviation_LowLimit) and r.value(TH.col_Measure_Main) < r.value(TH.col_Deviation_UpLimit):
@@ -3585,7 +3591,6 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                         #self.txtMsg_append(f"DUT Measure=> {MeasDut['Function']}, {MeasDut['Status']}, {str(MeasDut['TVA'])}, {str(MeasDut['TAR'])}, {str(MeasDut['TT'])}",Qt.red)
                         r.setValue(TH.col_Judge, 'FAIL')
                         rComment+=f",Status: {MeasDut['Status']}"
-                    r.setValue(TH.col_Comment, rComment)
                     self.Update_TRecord(r,True,rStartTime)
                     psw.setOutput_State(0)
                     self.DUT.CLS()
@@ -3666,8 +3671,10 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 PSW_H_V.RST()
                 DUT_CR_MODE = self.DUT.get_IDN()
                 self.DUT.setOper_Mode("CR")
-                i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
-                i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                #i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
+                #i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                i2t = str(r.value(TH.col_ItemName_2t)).upper().split()[-1]
+                i3t = str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
                 strM=i2t+i3t
                 psw = self.select_psw(r.value(TH.col_Cond_DUT))
                 if strM.find('LOW')>=0:
@@ -3691,7 +3698,7 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 elif strM.find('HIGH')>=0:
                     self.DUT.setCurrent_Range("HIGH")
                     self.DUT.setCR_Resistance(r.value(TH.col_Cond_1))
-                    self.DUT.setCR_Resistance_RISE_Value(r.value(TH.col_Comment))
+                    self.DUT.setCR_Resistance_RISE_Value(r.value(TH.col_ItemName_3t))
                     psw.setVoltage(r.value(TH.col_Cond_2))
                     psw.setCurrent(r.value(TH.col_Cond_DUT))
                     psw_vol=psw.getVoltage()
@@ -3785,7 +3792,7 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 else:
                     print("找不到對應的型號或操作模式")
 
-                if strIName=='PEL_CR準確度':
+                if strIName=='CR Accuracy':
                     if model.endswith("E"):
                         PCS_CRMEAS_mS = (PCS_CRMEAS / DMM_CR_MEAS_V)*1000
                         r.setValue(TH.col_Measure_1,PCS_CRMEAS)
@@ -3807,7 +3814,8 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                         #self.txtMsg_append(f"DUT Measure=> {MeasDut['Function']}, {MeasDut['Status']}, {str(MeasDut['TVA'])}, {str(MeasDut['TAR'])}, {str(MeasDut['TT'])}",Qt.red)
                         r.setValue(TH.col_Judge, 'FAIL')
                         #rComment+=f",Status: {MeasDut['Status']}"
-                    #r.setValue(TH.col_Comment, rComment) 為了使用備註欄位把使功能移除
+                    rComment=f'{{"DVM讀值":{DMM_CR_MEAS_V},"SHUNT讀值":{PCS_CRMEAS}}}'
+                    r.setValue(TH.col_Comment, rComment) #為了使用備註欄位把使功能移除
                     self.Update_TRecord(r,True,rStartTime)
                     psw.setOutput_State(0)
                     self.DUT.CLS()
@@ -3887,8 +3895,10 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 PSW_H_A.RST()
                 PSW_H_V.RST()
                 self.DUT.setOper_Mode("CV")
-                i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
-                i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                #i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
+                #i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                i2t = str(r.value(TH.col_ItemName_2t)).upper().split()[-1]
+                i3t = str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
                 strM=i2t+i3t
                 psw = self.select_psw(r.value(TH.col_Cond_DUT))
                 if strM.find('LOW')>=0:
@@ -3955,7 +3965,7 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                         CVU = PEL_CV_SET_V + ((0.001 * PEL_CV_SET_V) + (0.001 * fs))
 
 
-                if strIName=='PEL_CV準確度':
+                if strIName=='CV Accuracy':
                     r.setValue(TH.col_Measure_Main,DMM_CV_MEAS)
                     r.setValue(TH.col_LowLimit,CVL)
                     r.setValue(TH.col_UpLimit,CVU)
@@ -4053,8 +4063,10 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 PSW_H_A.RST()
                 PSW_H_V.RST()
                 self.DUT.setOper_Mode("CV")
-                i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
-                i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                #i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
+                #i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                i2t = str(r.value(TH.col_ItemName_2t)).upper().split()[-1]
+                i3t = str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
                 strM=i2t+i3t
                 psw = self.select_psw(r.value(TH.col_Cond_DUT))
                 if strM.find('LOW')>=0:
@@ -4122,7 +4134,7 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 
                 print(f"計算結果: {CVL}")
                 print(f"計算結果: {CVU}")
-                if strIName=='PEL_CV表頭準確度':
+                if strIName=='CV Measurement Readback':
                     r.setValue(TH.col_Deviation_LowLimit,CVL)
                     r.setValue(TH.col_Deviation_UpLimit,CVU)
                     r.setValue(TH.col_Measure_Main,PEL_MEAS_READBK)
@@ -4219,8 +4231,10 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 PSW_H_V.RST()
                 DUT_CP_MODE=self.DUT.get_IDN().split(",")[1].strip()
                 self.DUT.setOper_Mode("CP")
-                i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
-                i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                #i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
+                #i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                i2t = str(r.value(TH.col_ItemName_2t)).upper().split()[-1]
+                i3t = str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
                 strM=i2t+i3t
                 psw = self.select_psw(r.value(TH.col_Cond_DUT))
                 if strM.find('LOW')>=0:
@@ -4331,12 +4345,14 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 print(f"計算結果 PL: {PL}")
                 print(f"計算結果 PU: {PU}")
 
-                if strIName=='PEL_CP準確度':
+                if strIName=='CP Accuracy':
                     r.setValue(TH.col_Measure_Main,PEL_CP_MEAS)
                     r.setValue(TH.col_Measure_1,DMM_CP_MEAS_V)
                     r.setValue(TH.col_Measure_2,PCS_CP_MEAS_A)
                     r.setValue(TH.col_LowLimit,PL)
                     r.setValue(TH.col_UpLimit,PU)
+                    rComment=f'{{"DVM讀值":{DMM_CP_MEAS_V},"SHUNT讀值":{PCS_CP_MEAS_A}}}'
+                    r.setValue(TH.col_Comment, rComment)
                     if  r.value(TH.col_Measure_Main)!='':
                         #self.txtMsg_append(f"DUT Measure=> {MeasDut['Function']}, {MeasDut['Status']}, {str(MeasDut['TVA'])}, {str(MeasDut['TAR'])}, {str(MeasDut['TT'])}")
                         if r.value(TH.col_Measure_Main) > r.value(TH.col_LowLimit) and r.value(TH.col_Measure_Main) < r.value(TH.col_UpLimit):
@@ -4347,7 +4363,6 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                         #self.txtMsg_append(f"DUT Measure=> {MeasDut['Function']}, {MeasDut['Status']}, {str(MeasDut['TVA'])}, {str(MeasDut['TAR'])}, {str(MeasDut['TT'])}",Qt.red)
                         r.setValue(TH.col_Judge, 'FAIL')
                         rComment+=f",Status: {MeasDut['Status']}"
-                    r.setValue(TH.col_Comment, rComment)
                     self.Update_TRecord(r,True,rStartTime)
                     psw.setOutput_State(0)
                     self.DUT.CLS()
@@ -4428,8 +4443,10 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 PSW_H_A.RST()
                 PSW_H_V.RST()
                 self.DUT.setOper_Mode("CC")
-                i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
-                i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                #i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
+                #i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                i2t = str(r.value(TH.col_ItemName_2t)).upper().split()[-1]
+                i3t = str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
                 strM=i2t+i3t
                 psw = self.select_psw(r.value(TH.col_Cond_DUT))
                 if strM.find('LOW')>=0:
@@ -4542,11 +4559,13 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 I_MOL = base - (base * tol['TOL_1'] + tol['TOL_2'] * offset)
                 I_MOU = base + (base * tol['TOL_1'] + tol['TOL_2'] * offset)
 
-                if strIName=='CC_BNC_IMON準確度':
+                if strIName=='CC BNC IMON Accuracy':
                         r.setValue(TH.col_Measure_Main,PCS_VMO_ACC)
                         r.setValue(TH.col_LowLimit,I_MOL)
                         r.setValue(TH.col_UpLimit,I_MOU)
                         r.setValue(TH.col_Measure_1,PCS_read)
+                        rComment=f'{{"SHUNT讀值":{PCS_read}}}'
+                        r.setValue(TH.col_Comment, rComment)
                         if  r.value(TH.col_Measure_Main)!='':
                             #self.txtMsg_append(f"DUT Measure=> {MeasDut['Function']}, {MeasDut['Status']}, {str(MeasDut['TVA'])}, {str(MeasDut['TAR'])}, {str(MeasDut['TT'])}")
                             if r.value(TH.col_Measure_Main) > r.value(TH.col_LowLimit) and r.value(TH.col_Measure_Main) < r.value(TH.col_UpLimit):
@@ -4557,7 +4576,6 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                             #self.txtMsg_append(f"DUT Measure=> {MeasDut['Function']}, {MeasDut['Status']}, {str(MeasDut['TVA'])}, {str(MeasDut['TAR'])}, {str(MeasDut['TT'])}",Qt.red)
                             r.setValue(TH.col_Judge, 'FAIL')
                             rComment+=f",Status: {MeasDut['Status']}"
-                        r.setValue(TH.col_Comment, rComment)
                         self.Update_TRecord(r,True,rStartTime)
                         psw.setOutput_State(0,delay_after=0.5)
                         self.DUT.CLS()
@@ -4642,8 +4660,10 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 PSW_H_A.RST()
                 PSW_H_V.RST()
                 self.DUT.setOper_Mode("CV")
-                i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
-                i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                #i2t=str(r.value(TH.col_ItemName_2t)).upper().replace(" ","")
+                #i3t=str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
+                i2t = str(r.value(TH.col_ItemName_2t)).upper().split()[-1]
+                i3t = str(r.value(TH.col_ItemName_3t)).upper().replace(" ","")
                 strM=i2t+i3t
                 psw = self.select_psw(r.value(TH.col_Cond_DUT))
                 if strM.find('LOW')>=0:
@@ -4742,11 +4762,13 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                 V_MOL = base - (base * tol['TOL_1'] + tol['TOL_2'] * offset)
                 V_MOU = base + (base * tol['TOL_1'] + tol['TOL_2'] * offset)
 
-                if strIName=='CV_BNC_VMON準確度':
+                if strIName=='CV BNC VMON Accuracy':
                         r.setValue(TH.col_Measure_Main,PCS_VMO_ACC)
                         r.setValue(TH.col_LowLimit,V_MOL)
                         r.setValue(TH.col_UpLimit,V_MOU)
                         r.setValue(TH.col_Measure_1,PCS_read)
+                        rComment=f'{{"DVM讀值":{DMM_read}}}'
+                        r.setValue(TH.col_Comment, rComment)
                         if  r.value(TH.col_Measure_Main)!='':
                             #self.txtMsg_append(f"DUT Measure=> {MeasDut['Function']}, {MeasDut['Status']}, {str(MeasDut['TVA'])}, {str(MeasDut['TAR'])}, {str(MeasDut['TT'])}")
                             if r.value(TH.col_Measure_Main) > r.value(TH.col_LowLimit) and r.value(TH.col_Measure_Main) < r.value(TH.col_UpLimit):
@@ -4757,7 +4779,6 @@ class MainTest(QtWidgets.QMdiSubWindow, Ui_frmMainTest):#UI 測試項目請在�
                             #self.txtMsg_append(f"DUT Measure=> {MeasDut['Function']}, {MeasDut['Status']}, {str(MeasDut['TVA'])}, {str(MeasDut['TAR'])}, {str(MeasDut['TT'])}",Qt.red)
                             r.setValue(TH.col_Judge, 'FAIL')
                             rComment+=f",Status: {MeasDut['Status']}"
-                        r.setValue(TH.col_Comment, rComment)
                         self.Update_TRecord(r,True,rStartTime)
                         psw.setOutput_State(0,delay_after=0.5)
                         self.DUT.CLS()
